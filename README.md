@@ -1,2 +1,2 @@
 # USA-Tranfers
-Repositorio para llevar egistro del proceso de reclutamiento.
+Repositorio para llevar registro del proceso de reclutamiento.
