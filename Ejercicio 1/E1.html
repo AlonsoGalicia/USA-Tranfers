@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ejercicio 1</title>
+    <link rel='stylesheet' href='bootstrap.min.css'>
+    <style type="text/css">
+      span { float: right; }
+    </style>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+  </head>
+
+<body>
+ 
+  <div class='col-md-6'>
+    <h2>Productos</h2> 
+    <form id='registro' onsubmit='return false'>
+      <div class='form-group'>
+        <label>Nombre</label><br>
+        <input type='text' class='form-control' id='nombre' placeholder='Nombre del producto' required oninvalid="this.setCustomValidity('Ingresa el Nombre del producto')">
+      </div>
+      
+      <div class='form-group'>
+        <label>Cantidad</label><br>
+        <input type='number' class='form-control' id='cantidad' placeholder='Cantidad del producto' required oninvalid="this.setCustomValidity('Ingresa la cantidad del producto')" min='1'>
+      </div>
+
+      <button type='submit' class='btn btn-primary' id='agregar'>Agregar</button>
+    <closeform></closeform>
+    </form>
+  </div>
+
+  <div class='col-md-6'>
+    <h2>Lista de productos</h2>  
+    <table id='myTable' class='table' >
+    <thead>
+      <tr>
+        <th nowrap>#</th>      
+        <th nowrap>Nombre</th>      
+        <th nowrap>Cantidad</th>
+        <th nowrap>Opciones</th>
+      </tr>
+    </thead>
+    <tbody >
+    </tbody>
+    </table>
+    
+    <div class='form-group'>
+      <button id='remove' class="btn btn-danger">Borrar Todo</button>
+      <h1><span id='contador' class='label label-primary'>Total de productos: 0</span></h1>
+    </div>  
+       
+  </div>
+
+  <script type='text/javascript'>
+  $('#remove').hide();
+
+    function sumaColumna(){
+      var table = document.getElementById('myTable'), sumVal = 0;
+      for(var i = 1; i < table.rows.length; i++){
+        sumVal = sumVal + parseInt(table.rows[i].cells[2].innerHTML);
+      }
+      return (sumVal.toString());
+    }
+
+    $('#agregar').on('click', function(){//function(e){
+      //e.preventDefault()
+      var nombre=$('#nombre').val();
+      var cantidad=$('#cantidad').val();
+      var count = $('#myTable tr').length;
+
+      if(nombre!='' && cantidad !=''){
+        $('#myTable tbody').append('<tr class="child"><td><b>'+count+'</b></td><td>'+nombre+'</td><td >'+cantidad+'</td><td><a href="javascript:void(0);" class="remCF1 btn btn-small btn-danger">Borrar</a></td></tr>');
+        $('#registro').trigger('reset');
+        $('#remove').show();        
+      }
+
+      $('#contador').text('Total de productos:' + sumaColumna())
+
+    });
+
+    $(document).on('click','.remCF1',function(){
+      $(this).parent().parent().remove();
+      $('#myTable tbody tr').each(function(i){
+        $($(this).find('td')[0]).html(i+1);
+      });
+    });
+
+    $('#remove').on('click', ()=>{
+      $('#myTable tbody tr').remove()
+      $('#contador').text('Total de productos: 0')
+      $('#remove').hide();
+    })
+    
+  </script>
+</body>
+</html>
