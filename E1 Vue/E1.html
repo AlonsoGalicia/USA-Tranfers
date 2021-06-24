@@ -49,8 +49,8 @@
           <button v-if="products.length>1"  class=" btn btn-danger" @click="removeAll">Borrar Todo</button>
         </div>
 
-        <div class="h3 alert alert-info">
-          <strong>Total de productos: </strong>{{ total }}
+        <div :class="validateTotal">
+          <strong>Total de productos: </strong>{{ sumTotal }} 
         </div>
 
     </div>
